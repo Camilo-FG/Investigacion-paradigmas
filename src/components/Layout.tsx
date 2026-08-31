@@ -24,6 +24,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
           {isAdmin && (
             <>
               <Link to="/admin-panel" className={isActive('/admin-panel')}>Panel Admin</Link>
+              <Link to="/admin/register" className={isActive('/admin/register')}>Crear Admin</Link>
               <Link to="/reservations" className={isActive('/reservations')}>Reservaciones</Link>
             </>
           )}

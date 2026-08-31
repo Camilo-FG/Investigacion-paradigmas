@@ -59,7 +59,7 @@ export function Login() {
               autoComplete="current-password"
             />
           </div>
-          <button type="submit" className="btn btn-primary" disabled={loading}>
+          <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
             {loading ? 'Ingresando...' : 'Iniciar Sesión'}
           </button>
         </form>

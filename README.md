@@ -1,78 +1,65 @@
-# React + TypeScript + Vite
+# Investigación 1 — Frontend (Hotel System)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Frontend en **React + TypeScript + Vite** para el backend de autenticación RBAC y dominio hotelero (habitaciones y reservaciones).
 
-Currently, two official plugins are available:
+## Requisitos
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- Node.js 20+
+- pnpm 9+
+- Backend corriendo en `http://localhost:5018`
 
-## React Compiler
+## Configuración
 
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+pnpm install
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+Si `pnpm install` falla por certificados SSL (antivirus/proxy), usa el almacén de certificados de Windows:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+```powershell
+$env:NODE_OPTIONS='--use-system-ca'
+pnpm install
+```
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+La URL del API está en `src/api/client.ts` (`http://localhost:5018`). Cámbiala si tu backend usa otro puerto.
 
+## Ejecutar
+
+```powershell
+$env:NODE_OPTIONS='--use-system-ca'
+pnpm run dev
+```
+
+Abre la URL que muestre Vite (normalmente `http://localhost:5173`).
+
+## Usuarios de demo
+
+| Rol | Email | Contraseña | Notas |
+|-----|-------|------------|-------|
+| Admin | `admin@example.com` | `AdminPass1` | Se crea al iniciar el backend si no hay admins |
+| Suscriptor | (regístrate) | mín. 6 chars, letra + número | POST `/register` desde la pantalla de registro |
+
+## Pantallas
+
+| Ruta | Acceso | Descripción |
+|------|--------|-------------|
+| `/login` | Público | Inicio de sesión |
+| `/register` | Público | Registro `Subscription_L1` |
+| `/dashboard` | Autenticado | Datos de `/users/me` |
+| `/rooms` | Autenticado | Lista de habitaciones |
+| `/reservations/create` | Autenticado | Crear reservación |
+| `/admin-panel` | Solo Admin | Gestión de usuarios |
+| `/admin/register` | Solo Admin | Crear otro administrador |
+| `/rooms/create` | Solo Admin | Crear habitación |
+| `/reservations` | Solo Admin | Reservaciones con datos de habitación |
+
+## Errores visibles
+
+- **401** — credenciales inválidas en login; sesión expirada redirige a login
+- **403** — banner global cuando la API rechaza por permisos o suscripción expirada; pantalla dedicada si un suscriptor entra a rutas Admin
+
+## Build
+
+```bash
+pnpm run build
 ```

@@ -12,7 +12,7 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
     return (
       <div className="page-container">
         <div className="alert alert-error">
-          Tu cuenta está desactivada. Contacta al administrador.
+          <strong>403 Forbidden</strong> — Tu cuenta está desactivada. Contacta al administrador.
         </div>
       </div>
     );
@@ -24,8 +24,8 @@ export function ProtectedRoute({ children }: { children: React.ReactNode }) {
       return (
         <div className="page-container">
           <div className="alert alert-error">
-            Tu suscripción ha expirado el {expiration.toLocaleDateString()}. 
-            Renueva para continuar.
+            <strong>403 Forbidden</strong> — Tu suscripción expiró el{' '}
+            {expiration.toLocaleDateString()}. Renueva para continuar.
           </div>
         </div>
       );

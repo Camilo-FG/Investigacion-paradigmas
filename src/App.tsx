@@ -2,6 +2,7 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider } from './context/AuthContext';
 import { ProtectedRoute } from './components/ProtectedRoute';
 import { AdminRoute } from './components/AdminRoute';
+import { ApiErrorBanner } from './components/ApiErrorBanner';
 import { Login } from './pages/Login';
 import { Register } from './pages/Register';
 import { Dashboard } from './pages/Dashboard';
@@ -10,11 +11,13 @@ import { RoomsList } from './pages/RoomsList';
 import { CreateRoom } from './pages/CreateRoom';
 import { ReservationsList } from './pages/ReservationsList';
 import { CreateReservation } from './pages/CreateReservation';
+import { AdminRegister } from './pages/AdminRegister';
 
 function App() {
   return (
     <BrowserRouter>
       <AuthProvider>
+        <ApiErrorBanner />
         <Routes>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
@@ -32,6 +35,14 @@ function App() {
             element={
               <AdminRoute>
                 <AdminPanel />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin/register"
+            element={
+              <AdminRoute>
+                <AdminRegister />
               </AdminRoute>
             }
           />

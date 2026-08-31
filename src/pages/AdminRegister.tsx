@@ -1,23 +1,22 @@
 import { useState, type FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Layout } from '../components/Layout';
 import { useAuth } from '../hooks/useAuth';
 
-export function Register() {
+function validatePassword(password: string): string | null {
+  if (password.length < 6) return 'La contraseña debe tener al menos 6 caracteres';
+  if (!/[a-zA-Z]/.test(password)) return 'La contraseña debe contener al menos una letra';
+  if (!/[0-9]/.test(password)) return 'La contraseña debe contener al menos un número';
+  return null;
+}
+
+export function AdminRegister() {
+  const { adminRegister } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
   const [loading, setLoading] = useState(false);
-  const { register } = useAuth();
-  const navigate = useNavigate();
-
-  const validatePassword = (pw: string): string | null => {
-    if (pw.length < 6) return 'La contraseña debe tener al menos 6 caracteres';
-    if (!/[a-zA-Z]/.test(pw)) return 'La contraseña debe contener al menos una letra';
-    if (!/[0-9]/.test(pw)) return 'La contraseña debe contener al menos un número';
-    return null;
-  };
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
@@ -37,14 +36,20 @@ export function Register() {
 
     setLoading(true);
     try {
-      await register(email, password);
-      setSuccess('Registro exitoso. Redirigiendo al login...');
-      setTimeout(() => navigate('/login'), 2000);
+      await adminRegister(email, password);
+      setSuccess(`Administrador ${email} creado correctamente.`);
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
     } catch (err: unknown) {
-      let message = 'Error al registrarse';
+      let message = 'Error al crear administrador';
       if (err && typeof err === 'object' && 'response' in err) {
-        const axiosErr = err as { response?: { data?: { error?: string } } };
-        if (axiosErr.response?.data?.error) {
+        const axiosErr = err as { response?: { data?: { error?: string }; status?: number } };
+        if (axiosErr.response?.status === 401) {
+          message = 'Debes iniciar sesión como Admin para crear otro administrador.';
+        } else if (axiosErr.response?.status === 403) {
+          message = 'Solo un Admin puede crear otro Admin.';
+        } else if (axiosErr.response?.data?.error) {
           message = axiosErr.response.data.error;
         }
       }
@@ -55,12 +60,15 @@ export function Register() {
   };
 
   return (
-    <div className="auth-page">
-      <div className="auth-card">
-        <h1>Registro</h1>
+    <Layout>
+      <div className="page-container">
+        <h1>Crear Administrador</h1>
+        <p className="form-hint" style={{ marginBottom: '20px' }}>
+          Registra un nuevo usuario con rol Admin. Requiere sesión de administrador.
+        </p>
         {error && <div className="alert alert-error">{error}</div>}
         {success && <div className="alert alert-success">{success}</div>}
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="form-card">
           <div className="form-group">
             <label>Email</label>
             <input
@@ -82,7 +90,7 @@ export function Register() {
             />
           </div>
           <div className="form-group">
-            <label>Confirmar Contraseña</label>
+            <label>Confirmar contraseña</label>
             <input
               type="password"
               value={confirmPassword}
@@ -91,14 +99,13 @@ export function Register() {
               autoComplete="new-password"
             />
           </div>
-          <button type="submit" className="btn btn-primary btn-block" disabled={loading}>
-            {loading ? 'Registrando...' : 'Registrarse'}
-          </button>
+          <div className="form-actions">
+            <button type="submit" className="btn btn-primary" disabled={loading}>
+              {loading ? 'Creando...' : 'Crear Admin'}
+            </button>
+          </div>
         </form>
-        <p className="auth-link">
-          ¿Ya tienes cuenta? <Link to="/login">Inicia sesión</Link>
-        </p>
       </div>
-    </div>
+    </Layout>
   );
 }
