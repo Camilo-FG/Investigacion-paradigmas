@@ -1,0 +1,93 @@
+/* Paleta de colores azules para toda la aplicación */
+
+:root {
+  /* Colores primarios azules */
+  --color-primary: #2563eb;        /* Azul principal */
+  --color-primary-light: #60a5fa;  /* Azul claro */
+  --color-primary-dark: #1d4ed8;   /* Azul oscuro */
+
+  /* Colores secundarios azul profundo */
+  --color-secondary: #1e40af;      /* Azul profundo */
+  --color-secondary-light: #3b82f6; /* Azul medio */
+  --color-secondary-dark: #1e3a8a;  /* Azul más oscuro */
+
+  /* Colores de acento cielo */
+  --color-accent: #0ea5e9;         /* Azul cielo */
+  --color-accent-light: #38bdf8;   /* Azul cielo claro */
+  --color-accent-dark: #0284c7;    /* Azul cielo oscuro */
+
+  /* Colores de estado */
+  --color-success: #16a34a;        /* Verde */
+  --color-warning: #d97706;        /* Ámbar */
+  --color-error: #dc2626;          /* Rojo */
+  --color-info: #0284c7;           /* Azul info */
+
+  /* Colores neutros */
+  --color-white: #ffffff;          /* Blanco puro */
+  --color-black: #1e293b;          /* Gris muy oscuro */
+  --color-gray-light: #f1f5f9;     /* Gris muy claro */
+  --color-gray-medium: #94a3b8;    /* Gris medio */
+  --color-gray-dark: #475569;      /* Gris oscuro */
+
+  /* Fondos */
+  --bg-primary: #f8fafc;           /* Fondo principal */
+  --bg-secondary: #f1f5f9;         /* Fondo secundario */
+  --bg-tertiary: #e2e8f0;          /* Fondo terciario */
+
+  /* Bordes */
+  --border-color: #cbd5e1;         /* Color de borde */
+  --border-light: #e2e8f0;         /* Borde claro */
+
+  /* Sombras */
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+
+  /* Espaciado */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+  --spacing-2xl: 3rem;
+
+  /* Tipografía */
+  --font-family-base: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  --font-family-mono: 'Courier New', monospace;
+
+  --font-size-xs: 0.75rem;
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.25rem;
+  --font-size-2xl: 1.5rem;
+  --font-size-3xl: 1.875rem;
+  --font-size-4xl: 2.25rem;
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 500;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+
+  /* Radios de borde */
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+
+  /* Transiciones */
+  --transition-fast: 150ms ease-in-out;
+  --transition-base: 200ms ease-in-out;
+  --transition-slow: 300ms ease-in-out;
+
+  /* Z-index */
+  --z-dropdown: 100;
+  --z-sticky: 1000;
+  --z-fixed: 1010;
+  --z-modal: 1020;
+  --z-modal-backdrop: 1010;
+}
