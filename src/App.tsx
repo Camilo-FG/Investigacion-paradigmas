@@ -1,17 +1,18 @@
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { AdminRoute } from './components/AdminRoute';
-import { ApiErrorBanner } from './components/ApiErrorBanner';
-import { Login } from './pages/Login';
-import { Register } from './pages/Register';
-import { Dashboard } from './pages/Dashboard';
-import { AdminPanel } from './pages/AdminPanel';
-import { RoomsList } from './pages/RoomsList';
-import { CreateRoom } from './pages/CreateRoom';
-import { ReservationsList } from './pages/ReservationsList';
-import { CreateReservation } from './pages/CreateReservation';
-import { AdminRegister } from './pages/AdminRegister';
+import { AuthProvider } from './features/auth/AuthContext';
+import { ProtectedRoute } from './shared/auth/ProtectedRoute';
+import { AdminRoute } from './shared/auth/AdminRoute';
+import { ApiErrorBanner } from './shared/components/ApiErrorBanner';
+import { Login } from './features/auth/login/Login';
+import { Register } from './features/auth/register/Register';
+import { Dashboard } from './features/users/getMe/Dashboard';
+import { AdminPanel } from './features/users/adminPanel/AdminPanel';
+import { UserDetail } from './features/users/getUserById/UserDetail';
+import { RoomsList } from './features/rooms/getRooms/RoomsList';
+import { CreateRoom } from './features/rooms/createRoom/CreateRoom';
+import { ReservationsList } from './features/reservations/getReservations/ReservationsList';
+import { CreateReservation } from './features/reservations/createReservation/CreateReservation';
+import { AdminRegister } from './features/auth/adminRegister/AdminRegister';
 
 function App() {
   return (
@@ -35,6 +36,14 @@ function App() {
             element={
               <AdminRoute>
                 <AdminPanel />
+              </AdminRoute>
+            }
+          />
+          <Route
+            path="/admin-panel/users/:id"
+            element={
+              <AdminRoute>
+                <UserDetail />
               </AdminRoute>
             }
           />

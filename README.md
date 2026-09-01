@@ -21,7 +21,7 @@ $env:NODE_OPTIONS='--use-system-ca'
 pnpm install
 ```
 
-La URL del API está en `src/api/client.ts` (`http://localhost:5018`). Cámbiala si tu backend usa otro puerto.
+La URL del API está en `src/shared/api/client.ts` (`http://localhost:5018`). Cámbiala si tu backend usa otro puerto.
 
 ## Ejecutar
 
@@ -49,6 +49,7 @@ Abre la URL que muestre Vite (normalmente `http://localhost:5173`).
 | `/rooms` | Autenticado | Lista de habitaciones |
 | `/reservations/create` | Autenticado | Crear reservación |
 | `/admin-panel` | Solo Admin | Gestión de usuarios |
+| `/admin-panel/users/:id` | Solo Admin | Detalle de un usuario (`GET /users/{id}`) |
 | `/admin/register` | Solo Admin | Crear otro administrador |
 | `/rooms/create` | Solo Admin | Crear habitación |
 | `/reservations` | Solo Admin | Reservaciones con datos de habitación |
